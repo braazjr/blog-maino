@@ -1,0 +1,7 @@
+com/braazjr/controller/IndexController.class
+com/braazjr/Main.class
+com/braazjr/model/Comentario.class
+com/braazjr/dao/PostDAO.class
+com/braazjr/model/Post.class
+com/braazjr/dao/ComentarioDAO.class
+com/braazjr/util/DAOUtil.class

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{fragments/layout :: layout (~{::body},'index')}">
+
+<body>
+	<div class="container col-md-offset-2 col-md-8">
+		<h1>Nome do blog</h1>
+		<h6>Descrição do blog</h6>
+		<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title" th:text="${post.titulo}"></h3>
+					</div>
+					<div class="panel-body">
+						<p th:utext="${post.conteudo}"></p>
+					</div>
+					<div class="panel-footer">
+						<div class="clearfix">
+							<div class="text-left" th:if="${quantidadeComentarios != null}">
+								<span th:text="${quantidadeComentarios} + ' comentário(s)'"></span>
+							</div>
+							<div class="text-right">
+								<button type="button" class="btn btn-danger" data-toggle="modal"
+									data-target="#excluirPost">Excluir</button>
+							</div>
+
+							<div class="modal fade" id="excluirPost" tabindex="-1"
+								role="dialog" aria-labelledby="myModalLabel">
+								<form th:action="@{/post/{codigo}(codigo=${post.codigo})}"
+									method="POST">
+									<input type="hidden" name="_method" value="DELETE" />
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+												<h4 class="modal-title" id="myModalLabel">Exclusão de
+													post</h4>
+											</div>
+											<div class="modal-body">Tem certeza que deseja excluir
+												este post?</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">Não</button>
+												<button type="submit" class="btn btn-danger">Sim</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<hr />
+
+						<br />
+
+						<form th:action="@{/post/{codigo}(codigo=${post.codigo})}"
+							method="POST">
+							<input type="hidden" name="codigoPost" th:value="*{post.codigo}" />
+
+							<div class="form-group">
+								<label for="comentarioUsuario">Usuário</label> <input
+									type="text" class="form-control" id="comentarioUsuario"
+									placeholder="Usuário" name="usuario">
+							</div>
+							<div class="form-group">
+								<label for="comentarioConteudo">Conteúdo</label>
+								<textarea class="form-control conteudoRich" rows="3"
+									id="comentarioConteudo" placeholder="Conteúdo" name="conteudo"></textarea>
+							</div>
+							<div class="clearfix">
+								<div class="text-right">
+									<button type="submit" class="btn btn-success">Comentar</button>
+								</div>
+							</div>
+						</form>
+
+						<br />
+
+						<h4>Comentários</h4>
+
+						<br />
+						<div th:each="comentario : ${comentarios}">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<h6 th:text="'#' + ${comentario.usuario}"></h6>
+									<h5 th:utext="${comentario.conteudo}"></h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

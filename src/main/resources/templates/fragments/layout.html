@@ -1,0 +1,86 @@
+<!doctype html>
+<html th:fragment="layout (template, menu)">
+<head>
+<title>Blog Mainô</title>
+<link rel="stylesheet" type="text/css"
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+<link rel="stylesheet" type="text/css"
+	href="/stylesheets/bootstrap3-wysihtml5.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="/stylesheets/font-awesome.min.css" />
+</head>
+
+<body>
+	<nav class="navbar navbar-default navbar-static-top navbar-inverse">
+		<div class="container col-md-offset-2 col-md-8">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/"><span
+						class="glyphicon glyphicon-home"></span> Home</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-expanded="false"><span
+						class="glyphicon glyphicon-info-sign"></span> Opções <span
+						class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#" data-toggle="modal"
+							data-target="#modalSalvar"> Novo post</a></li>
+						<li><a
+							href="https://devcenter.heroku.com/articles/getting-started-with-ruby">
+								Sair</a></li>
+					</ul></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="modal fade" id="modalSalvar" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<form action="/" method="POST">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Novo post</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="postTitulo">Título</label> <input type="text"
+								class="form-control" id="postTitulo" placeholder="Título"
+								name="titulo">
+						</div>
+						<div class="form-group">
+							<label for="postConteudo">Conteúdo</label>
+							<textarea class="form-control conteudoRich" rows="3"
+								id="postConteudo" placeholder="Conteúdo" name="conteudo"></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div th:replace="${template}" />
+
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/wysihtml5x-toolbar.min.js}"></script>
+	<script th:src="@{/js/handlebars.runtime.min.js}"></script>
+	<script th:src="@{/js/bootstrap3-wysihtml5.min.js}"></script>
+
+	<script>
+  $('.conteudoRich').wysihtml5({
+    toolbar: {
+      fa: true
+    }
+  });
+</script>
+</body>
